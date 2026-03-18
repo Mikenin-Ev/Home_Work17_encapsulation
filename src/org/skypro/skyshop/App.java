@@ -25,7 +25,7 @@ public class App {
 
         basket.printContents();
 
-        int totalCost = basket.getTotalPrice();
+        int totalCost = basket.getTotalCost();
         System.out.println("Общая стоимость корзины: " + totalCost + " руб.\n");
 
         boolean isFound = basket.findProduct("Хлеб");
@@ -46,7 +46,7 @@ public class App {
 
         basket.printContents();
 
-        totalCost = basket.getTotalPrice();
+        totalCost = basket.getTotalCost();
         System.out.println("Стоимость пустой корзины: " + totalCost + " руб.\n");
 
         isFound = basket.findProduct("Яблоки");

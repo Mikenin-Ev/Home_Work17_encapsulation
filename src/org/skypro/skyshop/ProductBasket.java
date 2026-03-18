@@ -32,7 +32,7 @@ public class ProductBasket {
         System.out.println("--------------------------\n");
     }
 
-    public int getTotalPrice() {
+    public int getTotalCost() {
         int total = 0;
         for (int i = 0; i < count; i++) {
             total += units[i].getPrice();
@@ -40,14 +40,6 @@ public class ProductBasket {
         return total;
     }
 
-//    public Product findProduct(String name) {
-//        for (int i = 0; i < count; i++) {
-//            if (units[i].getName().equals(name)) {
-//                return units[i];
-//            }
-//        }
-//        return null;
-//    }
 public boolean findProduct(String name) {
     for (int i = 0; i < count; i++) {
         if (units[i].getName().equals(name)) {
