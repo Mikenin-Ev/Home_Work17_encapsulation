@@ -1,8 +1,8 @@
 package org.skypro.skyshop;
 
 public class Product {
-    private String name;
-    private int price;
+    private final String name;
+    private final int price;
 
     public Product(String name, int price) {
         if (price < 0) {

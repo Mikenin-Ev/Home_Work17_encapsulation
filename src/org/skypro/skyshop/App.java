@@ -20,22 +20,24 @@ public class App {
         basket.addProduct(p5);
         basket.addProduct(p4);
         basket.addProduct(p1);
+        basket.addProduct(p3);
+        basket.addProduct(p2);
 
         basket.printContents();
 
-        int totalCost = basket.getTotalCost();
+        int totalCost = basket.getTotalPrice();
         System.out.println("Общая стоимость корзины: " + totalCost + " руб.\n");
 
-        Product foundProduct = basket.findProduct("Хлеб");
-        if (foundProduct != null) {
-            System.out.println("Найден товар: " + foundProduct);
+        boolean isFound = basket.findProduct("Хлеб");
+        if (isFound) {
+            System.out.println("Товар 'Хлеб' найден.");
         } else {
             System.out.println("Товар 'Хлеб' не найден.");
         }
 
-        foundProduct = basket.findProduct("Мясо");
-        if (foundProduct != null) {
-            System.out.println("Найден товар: " + foundProduct);
+        isFound = basket.findProduct("Мясо");
+        if (isFound) {
+            System.out.println("Товар 'Мясо' найден.");
         } else {
             System.out.println("Товар 'Мясо' не найден.\n");
         }
@@ -44,12 +46,12 @@ public class App {
 
         basket.printContents();
 
-        totalCost = basket.getTotalCost();
+        totalCost = basket.getTotalPrice();
         System.out.println("Стоимость пустой корзины: " + totalCost + " руб.\n");
 
-        foundProduct = basket.findProduct("Яблоки");
-        if (foundProduct != null) {
-            System.out.println("Найден товар: " + foundProduct);
+        isFound = basket.findProduct("Яблоки");
+        if (isFound) {
+            System.out.println("В пустой корзине товар 'Яблоки' не найден." );
         } else {
             System.out.println("В пустой корзине товар 'Яблоки' не найден.");
         }
