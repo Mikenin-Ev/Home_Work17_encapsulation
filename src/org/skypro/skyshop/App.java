@@ -2,26 +2,26 @@ package org.skypro.skyshop;
 
 public class App {
     public static void main(String[] args){
-        Product p1 = new Product("Хлеб", 50);
-        Product p2 = new Product("Кефир", 120);
-        Product p3 = new Product("Мясо", 350);
-        Product p4 = new Product("Сыр", 1050);
-        Product p5 = new Product("Яблоки", 105);
+        SimpleProduct sp1 = new SimpleProduct("Хлеб", 50);
+        SimpleProduct sp2 = new SimpleProduct("Кефир", 120);
+        SimpleProduct sp3 = new SimpleProduct("Мясо", 350);
+        SimpleProduct sp4 = new SimpleProduct("Сыр", 1050);
+        SimpleProduct sp5 = new SimpleProduct("Яблоки", 105);
 
-        System.out.println(p1);
-        System.out.println(p2);
-        System.out.println(p3);
-        System.out.println(p4);
-        System.out.println(p5);
+        System.out.println(sp1);
+        System.out.println(sp2);
+        System.out.println(sp3);
+        System.out.println(sp4);
+        System.out.println(sp5);
 
        ProductBasket basket = new ProductBasket();
 
-        basket.addProduct(p2);
-        basket.addProduct(p5);
-        basket.addProduct(p4);
-        basket.addProduct(p1);
-        basket.addProduct(p3);
-        basket.addProduct(p2);
+        basket.addProduct(sp2);
+        basket.addProduct(sp5);
+        basket.addProduct(sp4);
+        basket.addProduct(sp1);
+        basket.addProduct(sp3);
+        basket.addProduct(sp2);
 
         basket.printContents();
 

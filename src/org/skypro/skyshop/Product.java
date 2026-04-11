@@ -1,8 +1,7 @@
 package org.skypro.skyshop;
 
-public class Product {
+public abstract class Product {
     private final String name;
-    private final int price;
 
     public Product(String name, int price) {
         if (price < 0) {
@@ -12,19 +11,16 @@ public class Product {
             System.out.println("Ничего не бывает даром...");
         }
         this.name = name;
-        this.price = price;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getPrice() {
-        return price;
-    }
+    public abstract int getPrice();
 
     @Override
     public String toString() {
-        return "<" + name + ">" + ":" + "<" + price + ">";
+        return name;
     }
 }
