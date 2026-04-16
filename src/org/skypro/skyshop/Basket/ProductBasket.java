@@ -51,6 +51,18 @@ public boolean findProduct(String name) {
     return false;
 }
 
+    public int getSpecialProductCount() {
+        int count = 0;
+        for (Product product : units) {
+            if (product != null) {
+                if (product.isSpecial()) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     public void clear() {
         for (int i = 0; i < count; i++) {
            units[i] = null;

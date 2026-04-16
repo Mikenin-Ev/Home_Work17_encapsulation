@@ -1,31 +1,33 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.Basket.ProductBasket;
+import org.skypro.skyshop.Product.DiscountedProduct;
+import org.skypro.skyshop.Product.FixPrice;
 import org.skypro.skyshop.Product.Product;
 import org.skypro.skyshop.Product.SimpleProduct;
 
 public class App {
     public static void main(String[] args){
-        Product sp1 = new SimpleProduct("Хлеб", 50);
-        Product sp2 = new SimpleProduct("Кефир", 120);
-        Product sp3 = new SimpleProduct("Мясо", 350);
-        Product sp4 = new SimpleProduct("Сыр", 1050);
-        Product sp5 = new SimpleProduct("Яблоки", 105);
+        Product p1 = new SimpleProduct("Хлеб", 50);
+        Product p2 = new FixPrice("Кефир");
+        Product p3 = new SimpleProduct("Мясо", 350);
+        Product p4 = new FixPrice("Сыр");
+        Product p5 = new DiscountedProduct("Яблоки", 105, 20);
 
-        System.out.println(sp1);
-        System.out.println(sp2);
-        System.out.println(sp3);
-        System.out.println(sp4);
-        System.out.println(sp5);
+        System.out.println(p1);
+        System.out.println(p2);
+        System.out.println(p3);
+        System.out.println(p4);
+        System.out.println(p5);
 
        ProductBasket basket = new ProductBasket();
 
-        basket.addProduct(sp2);
-        basket.addProduct(sp5);
-        basket.addProduct(sp4);
-        basket.addProduct(sp1);
-        basket.addProduct(sp3);
-        basket.addProduct(sp2);
+        basket.addProduct(p2);
+        basket.addProduct(p5);
+        basket.addProduct(p4);
+        basket.addProduct(p1);
+        basket.addProduct(p3);
+        basket.addProduct(p2);
 
         basket.printContents();
 
