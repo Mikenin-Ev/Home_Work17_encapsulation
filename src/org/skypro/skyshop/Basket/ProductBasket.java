@@ -1,4 +1,6 @@
-package org.skypro.skyshop;
+package org.skypro.skyshop.Basket;
+
+import org.skypro.skyshop.Product.Product;
 
 public class ProductBasket {
     private static final int MAX_UNITS = 5;
@@ -12,11 +14,11 @@ public class ProductBasket {
 
     public boolean addProduct(Product product) {
         if (count >= MAX_UNITS) {
-            System.out.println("Ошибка: корзина полна! Нельзя добавить '" + product.getName() + "'.");
+            System.out.println("Ошибка: корзина полна! Нельзя добавить '" + product.getTitle() + "'.");
             return false;
         }
         units[count++] = product;
-        System.out.println("Товар '" + product.getName() + "' успешно добавлен в корзину.");
+        System.out.println("Товар '" + product.getTitle() + "' успешно добавлен в корзину.");
         return true;
     }
 
@@ -42,7 +44,7 @@ public class ProductBasket {
 
 public boolean findProduct(String name) {
     for (int i = 0; i < count; i++) {
-        if (units[i].getName().equals(name)) {
+        if (units[i].getTitle().equals(name)) {
             return true;
         }
     }
