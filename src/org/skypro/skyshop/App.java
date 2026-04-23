@@ -1,10 +1,12 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.Basket.ProductBasket;
+import org.skypro.skyshop.Info.Article;
 import org.skypro.skyshop.Product.DiscountedProduct;
 import org.skypro.skyshop.Product.FixPrice;
 import org.skypro.skyshop.Product.Product;
 import org.skypro.skyshop.Product.SimpleProduct;
+import org.skypro.skyshop.Search.SearchEngine;
 
 public class App {
     public static void main(String[] args){
@@ -61,5 +63,16 @@ public class App {
         } else {
             System.out.println("В пустой корзине товар 'Яблоки' не найден.");
         }
+
+        SearchEngine searchEngine = new SearchEngine();
+        searchEngine.addAll(p1, p2, p3, p4, p5);
+
+        Article p1Article = new Article(
+                "Хлеб всему голова",
+                "Хлеб - это пищевой продукт, выпекаемый из муки. Также словом «хлеб» часто " +
+                        "называют сельскохозяйственные культуры, а также зерно этих культур и муку, " +
+                        "используемую для выпечки. \n"
+        );
+
     }
 }
