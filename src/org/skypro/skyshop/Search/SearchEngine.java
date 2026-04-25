@@ -12,6 +12,7 @@ public class SearchEngine {
     }
 
     public SearchEngine() {
+
         this.searchables = new Searchable[DEFAULT_SIZE];
     }
 
@@ -51,5 +52,6 @@ public class SearchEngine {
                 return i;
             }
         }
+        return 0;
     }
 }

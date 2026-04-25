@@ -8,6 +8,8 @@ import org.skypro.skyshop.Product.Product;
 import org.skypro.skyshop.Product.SimpleProduct;
 import org.skypro.skyshop.Search.SearchEngine;
 
+import java.util.Arrays;
+
 public class App {
     public static void main(String[] args){
         Product p1 = new SimpleProduct("Хлеб", 50);
@@ -74,5 +76,32 @@ public class App {
                         "используемую для выпечки. \n"
         );
 
+        Article p2Article = new Article(
+                "Кефир",
+                "Внук у бабушки спросил: — Хорошо ли пить кефир? Бабушка сказала честно: — Пить кефир — весьма полезно!\n" +
+                        "Чем полезен сей продукт, Почему кефир нам друг? Собираясь в магазин, — Не забудьте про кефир!\n" +
+                        "Кефир — жажду утоляет, Калий, кальций восполняет. Витаминов — в нём не счесть, Он содержит даже медь!\n" +
+                        "Фосфор, серу, натрий, хром — Минералов в нём набор.\n" +
+                        "Так что, взрослые и дети, Вы кефир — на радость, пейте!"
+        );
+
+        Article p3Article = new Article(
+                "Наслаждение мясом",
+                "Наслаждение в трёх вещах: есть мясо, ездить верхом на мясе и..."
+        );
+
+        searchEngine.addAll(p1Article, p2Article, p3Article);
+
+        String searchQuery1 = "Хлеб";
+        System.out.println("Поиск \"" + searchQuery1 + "\" : " + Arrays.toString(searchEngine.search(searchQuery1)));
+
+        String searchQuery2 = "Кефир";
+        System.out.println("Поиск \"" + searchQuery2 + "\" : " + Arrays.toString(searchEngine.search(searchQuery2)));
+
+        String searchQuery3 = "Мясо";
+        System.out.println("Поиск \"" + searchQuery3 + "\" : " + Arrays.toString(searchEngine.search(searchQuery3)));
+
+        String searchQuery4 = "Мороженное";
+        System.out.println("Поиск \"" + searchQuery4 + "\" : " + Arrays.toString(searchEngine.search(searchQuery4)));
     }
 }
