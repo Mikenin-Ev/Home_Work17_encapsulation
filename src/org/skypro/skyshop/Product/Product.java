@@ -3,14 +3,14 @@ package org.skypro.skyshop.Product;
 import org.skypro.skyshop.Search.Searchable;
 
 public abstract class Product implements Searchable {
-    private final String title;
+    private final String name;
 
     public Product(String title) {
-        this.title = title;
+        this.name = title;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     public abstract int getPrice();
@@ -20,13 +20,13 @@ public abstract class Product implements Searchable {
     @Override
     public String toString() {
         return "Product{" +
-                "title='" + title + '\'' +
+                "title='" + name + '\'' +
                 '}';
     }
 
     @Override
     public String getSearchTerm() {
-        return title;
+        return name;
     }
 
     @Override

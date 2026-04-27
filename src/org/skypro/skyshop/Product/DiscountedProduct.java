@@ -4,8 +4,8 @@ public class DiscountedProduct extends Product {
     private int basePrice;
     private int discount;
 
-    public DiscountedProduct(String title, int basePrice, int discount) {
-        super(title);
+    public DiscountedProduct(String name, int basePrice, int discount) {
+        super(name);
         this.basePrice = basePrice;
         this.discount = discount;
     }
@@ -22,6 +22,6 @@ public class DiscountedProduct extends Product {
 
     @Override
     public String toString() {
-        return getTitle() + ": " + getPrice() + " (" + discount + "%)";
+        return getName() + ": " + getPrice() + " (" + discount + "%)";
     }
 }

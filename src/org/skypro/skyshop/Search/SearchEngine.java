@@ -7,9 +7,9 @@ public class SearchEngine {
     private static final int NOT_FOUND = -1;
     private static final int DEFAULT_SIZE = 50;
 
-    public SearchEngine(int size) {
-        this.searchables = new Searchable[size];
-    }
+//    public SearchEngine(int size) {
+//        this.searchables = new Searchable[size];
+//    }
 
     public SearchEngine() {
 
@@ -52,6 +52,6 @@ public class SearchEngine {
                 return i;
             }
         }
-        return 0;
+        return -1;
     }
 }
