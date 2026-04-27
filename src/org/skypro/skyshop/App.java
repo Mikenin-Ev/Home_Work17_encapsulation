@@ -87,7 +87,7 @@ public class App {
 
         Article p3Article = new Article(
                 "Наслаждение мясом",
-                "Наслаждение в трёх вещах: есть мясо, ездить верхом на мясе и..."
+                "Наслаждение в трёх вещах: есть мясо, ездить верхом на мясе и... "
         );
 
         searchEngine.addAll(p1Article, p2Article, p3Article);
