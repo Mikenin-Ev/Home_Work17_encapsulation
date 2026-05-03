@@ -1,5 +1,7 @@
 package org.skypro.skyshop.Search;
 
+import java.util.List;
+
 public class SearchEngine {
     private final Searchable[] searchables;
 
@@ -7,11 +9,52 @@ public class SearchEngine {
     private static final int NOT_FOUND = -1;
     private static final int DEFAULT_SIZE = 50;
 
-//    public SearchEngine(int size) {
-//        this.searchables = new Searchable[size];
-//    }
+    public Searchable findBestMatch(String search, List<Searchable> items) throws BestResultNotFound {
+        if (search == null || search.isBlank() || items == null || items.isEmpty()) {
+            throw new BestResultNotFound("Не найдено подходящего объекта для запроса: '" + search + "'");
+        }
 
-    public SearchEngine() {
+        Searchable bestMatch = null;
+        int maxCount = -1;
+
+        // Используем for-each для перебора всех элементов
+        for (Searchable item : items) {
+            int count = countOccurrences(item.getSearchTerm(), search);
+            if (count > maxCount) {
+                maxCount = count;
+                bestMatch = item;
+            }
+        }
+
+        if (bestMatch == null || maxCount == 0) {
+            throw new BestResultNotFound("Не найдено подходящего объекта для запроса: '" + search + "'");
+        }
+
+        return bestMatch;
+    }
+
+    private int countOccurrences(String str, String substring) {
+        if (str == null || substring == null || str.isEmpty() || substring.isEmpty()) {
+            return 0;
+        }
+
+        int count = 0;
+        int index = 0;
+        int substringLength = substring.length();
+
+        while (true) {
+            int foundIndex = str.indexOf(substring, index);
+            if (foundIndex == -1) {
+                break;
+            }
+            count++;
+            index = foundIndex + substringLength;
+        }
+
+        return count;
+    }
+
+    public SearchEngine () {
 
         this.searchables = new Searchable[DEFAULT_SIZE];
     }
