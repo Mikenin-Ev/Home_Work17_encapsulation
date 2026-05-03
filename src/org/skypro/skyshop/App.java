@@ -6,32 +6,62 @@ import org.skypro.skyshop.Product.DiscountedProduct;
 import org.skypro.skyshop.Product.FixPrice;
 import org.skypro.skyshop.Product.Product;
 import org.skypro.skyshop.Product.SimpleProduct;
+import org.skypro.skyshop.Search.BestResultNotFound;
 import org.skypro.skyshop.Search.SearchEngine;
+import org.skypro.skyshop.Search.Searchable;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class App {
     public static void main(String[] args){
-        Product p1 = new SimpleProduct("Хлеб", 50);
-        Product p2 = new FixPrice("Кефир");
-        Product p3 = new SimpleProduct("Мясо", 350);
-        Product p4 = new FixPrice("Сыр");
-        Product p5 = new DiscountedProduct("Яблоки", 105, 20);
 
-        System.out.println(p1);
-        System.out.println(p2);
-        System.out.println(p3);
-        System.out.println(p4);
+        System.out.println("\n--- Создание продуктов с неправильными данными ---");
+
+        try {
+            Product p1 = new SimpleProduct("", 100);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        try {
+            Product p2 = new SimpleProduct("   ", 100);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        try {
+            Product p3 = new SimpleProduct("Товар 1", -50);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        try {
+            Product p4 = new DiscountedProduct("Товар со скидкой", 100, 150);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        Product p5 = new SimpleProduct("Хлеб", 50);
+        Product p6 = new FixPrice("Кефир");
+        Product p7 = new SimpleProduct("Мясо", 350);
+        Product p8 = new FixPrice("Сыр");
+        Product p9 = new DiscountedProduct("Яблоки", 105, 20);
+
         System.out.println(p5);
+        System.out.println(p6);
+        System.out.println(p7);
+        System.out.println(p8);
+        System.out.println(p9);
 
        ProductBasket basket = new ProductBasket();
 
-        basket.addProduct(p2);
+        basket.addProduct(p6);
+        basket.addProduct(p9);
+        basket.addProduct(p8);
         basket.addProduct(p5);
-        basket.addProduct(p4);
-        basket.addProduct(p1);
-        basket.addProduct(p3);
-        basket.addProduct(p2);
+        basket.addProduct(p7);
+        basket.addProduct(p6);
 
         basket.printContents();
 
@@ -67,7 +97,7 @@ public class App {
         }
 
         SearchEngine searchEngine = new SearchEngine();
-        searchEngine.addAll(p1, p2, p3, p4, p5);
+        searchEngine.addAll(p5, p6, p7, p8, p9);
 
         Article p1Article = new Article(
                 "Хлеб всему голова",
@@ -103,5 +133,34 @@ public class App {
 
         String searchQuery4 = "Мороженное";
         System.out.println("Поиск \"" + searchQuery4 + "\" : " + Arrays.toString(searchEngine.search(searchQuery4)));
+
+        List<Searchable> products = Arrays.asList(p5, p6, p7, p8, p9);
+
+        System.out.println("Созданные продукты:");
+        // Используем for-each для перебора и вывода каждого продукта
+        for (Searchable product : products) {
+            System.out.println(product);
+        }
+
+        // Демонстрация поиска
+        System.out.println("\n=== ДЕМОНСТРАЦИЯ ПОИСКА ===");
+
+        // Сценарий 1: успешный поиск
+        System.out.println("\n--- Сценарий 1: успешный поиск ---");
+        try {
+            Searchable result = searchEngine.findBestMatch("Яблоки", products);
+            System.out.println("Найден наиболее подходящий объект: " + result);
+        } catch (BestResultNotFound e) {
+            System.out.println("Ошибка поиска: " + e.getMessage());
+        }
+
+        // Сценарий 2: поиск с ошибкой (не найдено)
+        System.out.println("\n--- Сценарий 2: поиск без результатов ---");
+        try {
+            Searchable result = searchEngine.findBestMatch("Апельсин", products);
+            System.out.println("Найден наиболее подходящий объект: " + result);
+        } catch (BestResultNotFound e) {
+            System.out.println("Ошибка поиска: " + e.getMessage());
+        }
     }
 }
