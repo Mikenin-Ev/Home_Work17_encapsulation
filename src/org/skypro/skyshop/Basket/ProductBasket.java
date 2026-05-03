@@ -1,4 +1,6 @@
-package org.skypro.skyshop;
+package org.skypro.skyshop.Basket;
+
+import org.skypro.skyshop.Product.Product;
 
 public class ProductBasket {
     private static final int MAX_UNITS = 5;
@@ -48,6 +50,18 @@ public boolean findProduct(String name) {
     }
     return false;
 }
+
+    public int getSpecialProductCount() {
+        int count = 0;
+        for (Product product : units) {
+            if (product != null) {
+                if (product.isSpecial()) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
 
     public void clear() {
         for (int i = 0; i < count; i++) {
