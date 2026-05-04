@@ -1,13 +1,15 @@
 package org.skypro.skyshop.Search;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SearchEngine {
-    private final Searchable[] searchables;
+    private final List<Searchable> searchables;
 
-    private static final int MAX_SEARCH_RESALT = 5;
-    private static final int NOT_FOUND = -1;
-    private static final int DEFAULT_SIZE = 50;
+    public SearchEngine () {
+        this.searchables = new LinkedList<>();
+    }
 
     public Searchable findBestMatch(String search, List<Searchable> items) throws BestResultNotFound {
         if (search == null || search.isBlank() || items == null || items.isEmpty()) {
@@ -16,8 +18,6 @@ public class SearchEngine {
 
         Searchable bestMatch = null;
         int maxCount = -1;
-
-        // Используем for-each для перебора всех элементов
         for (Searchable item : items) {
             int count = countOccurrences(item.getSearchTerm(), search);
             if (count > maxCount) {
@@ -54,47 +54,26 @@ public class SearchEngine {
         return count;
     }
 
-    public SearchEngine () {
-
-        this.searchables = new Searchable[DEFAULT_SIZE];
+    public void add(Searchable searchable) {
+        if (searchable == null) {
+            throw new IllegalArgumentException("Не возможно добавить null элемент для поиска...");
+        }
+        searchables.add(searchable);
     }
 
-    public Searchable[] search(String query) {
-        Searchable[] resalt = new Searchable[MAX_SEARCH_RESALT];
-
-        int i = 0;
+    public List<Searchable> search(String searchString) {
+        List<Searchable> result = new ArrayList<>();
         for (Searchable searchable : searchables) {
-            if (searchable != null && searchable.getSearchTerm().contains(query)) {
-                resalt[i++] = searchable;
-                if (i >= MAX_SEARCH_RESALT) {
-                    break;
-                }
+            if (searchable.getSearchTerm().contains(searchString)) {
+                result.add(searchable);
             }
         }
-        return resalt;
-    }
-
-    public void add(Searchable searchable) {
-        int freeIndex = getFreeIndex();
-        if (freeIndex == NOT_FOUND) {
-            System.out.println("Не возможно добавить элемент для поиска...");
-            return;
-        }
-        searchables[freeIndex] = searchable;
+        return result;
     }
 
     public void addAll(Searchable... searchables) {
         for (Searchable searchable : searchables) {
             add(searchable);
         }
-    }
-
-    public int getFreeIndex() {
-        for (int i = 0; i < searchables.length; i++) {
-            if (searchables[i] == null) {
-                return i;
-            }
-        }
-        return -1;
     }
 }

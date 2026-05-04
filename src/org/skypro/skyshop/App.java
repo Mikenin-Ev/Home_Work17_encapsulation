@@ -63,7 +63,38 @@ public class App {
         basket.addProduct(p7);
         basket.addProduct(p6);
 
-        basket.printContents();
+        System.out.println("\n--- Исходное содержимое корзины ---");
+        basket.printBasket();
+
+        System.out.println("\n--- Удаление продукта 'Сыр' ---");
+        List<Product> removedCheez = basket.removeByName("Сыр");
+
+        System.out.println("Удалённые продукты:");
+        if (removedCheez.isEmpty()) {
+            System.out.println("Список пуст");
+        } else {
+            for (Product product : removedCheez) {
+                System.out.println("- " + product);
+            }
+        }
+
+        System.out.println("\n--- Содержимое корзины после удаления 'Сыр' ---");
+        basket.printBasket();
+
+        System.out.println("\n--- Удаление несуществующего продукта 'Апельсин' ---");
+        List<Product> removedOranges = basket.removeByName("Апельсин");
+
+        System.out.println("Удалённые продукты:");
+        if (removedOranges.isEmpty()) {
+            System.out.println("Список пуст");
+        } else {
+            for (Product product : removedOranges) {
+                System.out.println("- " + product);
+            }
+        }
+
+        System.out.println("\n--- Содержимое корзины после попытки удаления 'Апельсин' ---");
+        basket.printBasket();
 
         int totalCost = basket.getTotalCost();
         System.out.println("Общая стоимость корзины: " + totalCost + " руб.\n");
@@ -82,9 +113,10 @@ public class App {
             System.out.println("Товар 'Мясо' не найден.\n");
         }
 
-        basket.clear();
+        basket.clearBasket();
 
-        basket.printContents();
+        basket.printBasket();
+
 
         totalCost = basket.getTotalCost();
         System.out.println("Стоимость пустой корзины: " + totalCost + " руб.\n");
@@ -98,6 +130,7 @@ public class App {
 
         SearchEngine searchEngine = new SearchEngine();
         searchEngine.addAll(p5, p6, p7, p8, p9);
+
 
         Article p1Article = new Article(
                 "Хлеб всему голова",
@@ -123,29 +156,27 @@ public class App {
         searchEngine.addAll(p1Article, p2Article, p3Article);
 
         String searchQuery1 = "Хлеб";
-        System.out.println("Поиск \"" + searchQuery1 + "\" : " + Arrays.toString(searchEngine.search(searchQuery1)));
+        System.out.println("Поиск \"" + searchQuery1 + "\" : " + searchEngine.search(searchQuery1));
 
         String searchQuery2 = "Кефир";
-        System.out.println("Поиск \"" + searchQuery2 + "\" : " + Arrays.toString(searchEngine.search(searchQuery2)));
+        System.out.println("Поиск \"" + searchQuery2 + "\" : " + searchEngine.search(searchQuery2));
 
         String searchQuery3 = "Мясо";
-        System.out.println("Поиск \"" + searchQuery3 + "\" : " + Arrays.toString(searchEngine.search(searchQuery3)));
+        System.out.println("Поиск \"" + searchQuery3 + "\" : " + searchEngine.search(searchQuery3));
 
         String searchQuery4 = "Мороженное";
-        System.out.println("Поиск \"" + searchQuery4 + "\" : " + Arrays.toString(searchEngine.search(searchQuery4)));
+        System.out.println("Поиск \"" + searchQuery4 + "\" : " + searchEngine.search(searchQuery4));
 
         List<Searchable> products = Arrays.asList(p5, p6, p7, p8, p9);
 
         System.out.println("Созданные продукты:");
-        // Используем for-each для перебора и вывода каждого продукта
+
         for (Searchable product : products) {
             System.out.println(product);
         }
 
-        // Демонстрация поиска
         System.out.println("\n=== ДЕМОНСТРАЦИЯ ПОИСКА ===");
 
-        // Сценарий 1: успешный поиск
         System.out.println("\n--- Сценарий 1: успешный поиск ---");
         try {
             Searchable result = searchEngine.findBestMatch("Яблоки", products);
@@ -154,7 +185,6 @@ public class App {
             System.out.println("Ошибка поиска: " + e.getMessage());
         }
 
-        // Сценарий 2: поиск с ошибкой (не найдено)
         System.out.println("\n--- Сценарий 2: поиск без результатов ---");
         try {
             Searchable result = searchEngine.findBestMatch("Апельсин", products);
