@@ -2,72 +2,69 @@ package org.skypro.skyshop.Basket;
 
 import org.skypro.skyshop.Product.Product;
 
+import java.util.*;
+
 public class ProductBasket {
-    private static final int MAX_UNITS = 5;
-    private Product[] units;
-    private int count;
+    private final List<Product> products = new LinkedList<>();
 
-    public ProductBasket() {
-        units = new Product[MAX_UNITS];
-        count = 0;
-    }
-
-    public boolean addProduct(Product product) {
-        if (count >= MAX_UNITS) {
-            System.out.println("Ошибка: корзина полна! Нельзя добавить '" + product.getName() + "'.");
-            return false;
+    public void addProduct(Product product) {
+        if (product == null) {
+            throw new IllegalArgumentException("Нельзя добавить null");
         }
-        units[count++] = product;
-        System.out.println("Товар '" + product.getName() + "' успешно добавлен в корзину.");
-        return true;
-    }
-
-    public void printContents() {
-        System.out.println("\n--- Содержимое корзины ---");
-        if (count == 0) {
-            System.out.println("Корзина пуста.");
-        } else {
-            for (int i = 0; i < count; i++) {
-                System.out.println((i + 1) + ". " + units[i]);
-            }
-        }
-        System.out.println("--------------------------\n");
+        products.add(product);
     }
 
     public int getTotalCost() {
         int total = 0;
-        for (int i = 0; i < count; i++) {
-            total += units[i].getPrice();
+        for (Product product : products) {
+            total += product.getPrice();
         }
         return total;
     }
 
-public boolean findProduct(String name) {
-    for (int i = 0; i < count; i++) {
-        if (units[i].getName().equals(name)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-    public int getSpecialProductCount() {
-        int count = 0;
-        for (Product product : units) {
-            if (product != null) {
+    public void printBasket() {
+        System.out.println("\n--- Содержимое корзины ---");
+        if (products.isEmpty()) {
+            System.out.println("Корзина пуста...");
+        } else {
+            int count = 0;
+            for (Product product : products) {
+                System.out.println(product);
                 if (product.isSpecial()) {
                     count++;
                 }
             }
+            System.out.printf("Итого: %d%n", getTotalCost());
+            System.out.printf("Специальных товаров: %d%n", count);
         }
-        return count;
+        System.out.println("--------------------------\n");
     }
 
-    public void clear() {
-        for (int i = 0; i < count; i++) {
-           units[i] = null;
+    public List<Product> removeByName(String name) {
+        List<Product> removed = new LinkedList<>();
+        Iterator<Product> iter = products.iterator();
+        while (iter.hasNext()) {
+            Product next = iter.next();
+            if (next.getName().equals(name)) {
+                iter.remove();
+                removed.add(next);
+            }
         }
-        count = 0;
+        return removed;
+    }
+
+    public boolean findProduct(String name) {
+    for (Product product : products) {
+        if (product.getName().equals(name)) {
+            return true;
+        }
+    }
+    return false;
+    }
+
+
+    public void clearBasket() {
+        this.products.clear();
         System.out.println("Корзина очищена.");
     }
 }

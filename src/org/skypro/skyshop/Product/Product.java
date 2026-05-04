@@ -5,8 +5,12 @@ import org.skypro.skyshop.Search.Searchable;
 public abstract class Product implements Searchable {
     private final String name;
 
-    public Product(String title) {
-        this.name = title;
+    public Product(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Название продукта не может быть пустым или состоять только из пробелов");
+        }
+
+        this.name = name;
     }
 
     public String getName() {
@@ -20,7 +24,7 @@ public abstract class Product implements Searchable {
     @Override
     public String toString() {
         return "Product{" +
-                "title='" + name + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
 
