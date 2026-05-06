@@ -193,7 +193,6 @@ public class App {
             System.out.println("Результаты поиска по запросу 'Апельсин' (отсортировано по именам):");
             for (Searchable result : emptyResults.values()) {
                 System.out.println("- " + result);
-
             }
         }
         catch (BestResultNotFound e) {
