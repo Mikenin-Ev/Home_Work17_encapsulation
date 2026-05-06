@@ -12,9 +12,10 @@ import org.skypro.skyshop.Search.Searchable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 public class App {
-    public static void main(String[] args){
+    public static void main(String[] args) throws BestResultNotFound {
 
         System.out.println("\n--- Создание продуктов с неправильными данными ---");
 
@@ -177,19 +178,25 @@ public class App {
 
         System.out.println("\n=== ДЕМОНСТРАЦИЯ ПОИСКА ===");
 
-        System.out.println("\n--- Сценарий 1: успешный поиск ---");
         try {
-            Searchable result = searchEngine.findBestMatch("Яблоки", products);
-            System.out.println("Найден наиболее подходящий объект: " + result);
+            TreeMap<String, Searchable> searchResults = (TreeMap<String, Searchable>) searchEngine.search("Яблоки");
+            System.out.println("Результаты поиска по запросу 'яблоки' (отсортировано по именам):");
+            for (Searchable result : searchResults.values()) {
+                System.out.println("- " + result);
+            }
         } catch (BestResultNotFound e) {
             System.out.println("Ошибка поиска: " + e.getMessage());
         }
 
-        System.out.println("\n--- Сценарий 2: поиск без результатов ---");
         try {
-            Searchable result = searchEngine.findBestMatch("Апельсин", products);
-            System.out.println("Найден наиболее подходящий объект: " + result);
-        } catch (BestResultNotFound e) {
+            TreeMap<String, Searchable> emptyResults = (TreeMap<String, Searchable>) searchEngine.search("Апельсин");
+            System.out.println("Результаты поиска по запросу 'Апельсин' (отсортировано по именам):");
+            for (Searchable result : emptyResults.values()) {
+                System.out.println("- " + result);
+
+            }
+        }
+        catch (BestResultNotFound e) {
             System.out.println("Ошибка поиска: " + e.getMessage());
         }
     }

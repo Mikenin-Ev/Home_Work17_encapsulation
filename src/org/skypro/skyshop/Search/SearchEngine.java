@@ -1,13 +1,12 @@
 package org.skypro.skyshop.Search;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
     private final List<Searchable> searchables;
 
     public SearchEngine () {
+
         this.searchables = new LinkedList<>();
     }
 
@@ -61,14 +60,24 @@ public class SearchEngine {
         searchables.add(searchable);
     }
 
-    public List<Searchable> search(String searchString) {
-        List<Searchable> result = new ArrayList<>();
+    public Map<String, Searchable> search(String search) throws BestResultNotFound {
+        if (search == null || search.isBlank()) {
+            throw new BestResultNotFound("Не найдено подходящих объектов для запроса: '" + search + "'");
+        }
+
+        Map<String, Searchable> results = new TreeMap<>();
+
         for (Searchable searchable : searchables) {
-            if (searchable.getSearchTerm().contains(searchString)) {
-                result.add(searchable);
+            if (searchable.getSearchTerm().contains(search)) {
+                results.put(searchable.getName(), searchable);
             }
         }
-        return result;
+
+        if (results.isEmpty()) {
+            throw new BestResultNotFound("Не найдено подходящих объектов для запроса: '" + search + "'");
+        }
+
+        return results;
     }
 
     public void addAll(Searchable... searchables) {

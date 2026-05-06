@@ -9,4 +9,6 @@ public interface Searchable {
     default String getStringRepresentation() {
         return this.getClass().getSimpleName() + '-' + getSearchContentType();
     }
+
+    String getName();
 }
