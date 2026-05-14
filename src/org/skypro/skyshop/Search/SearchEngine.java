@@ -3,14 +3,13 @@ package org.skypro.skyshop.Search;
 import java.util.*;
 
 public class SearchEngine {
-    private final List<Searchable> searchables;
+    private final Set<Searchable> searchables;
 
     public SearchEngine () {
-
-        this.searchables = new LinkedList<>();
+        this.searchables = new HashSet<>();
     }
 
-    public Searchable findBestMatch(String search, List<Searchable> items) throws BestResultNotFound {
+    public Searchable findBestMatch(String search, Set<Searchable> items) throws BestResultNotFound {
         if (search == null || search.isBlank() || items == null || items.isEmpty()) {
             throw new BestResultNotFound("Не найдено подходящего объекта для запроса: '" + search + "'");
         }
@@ -60,16 +59,14 @@ public class SearchEngine {
         searchables.add(searchable);
     }
 
-    public Map<String, Searchable> search(String search) throws BestResultNotFound {
+    public Set<Searchable> search(String search) throws BestResultNotFound {
         if (search == null || search.isBlank()) {
             throw new BestResultNotFound("Не найдено подходящих объектов для запроса: '" + search + "'");
         }
-
-        Map<String, Searchable> results = new TreeMap<>();
-
+        Set<Searchable> results = new TreeSet<>(new SearchableComparator());
         for (Searchable searchable : searchables) {
             if (searchable.getSearchTerm().contains(search)) {
-                results.put(searchable.getName(), searchable);
+                results.add(searchable);
             }
         }
 
