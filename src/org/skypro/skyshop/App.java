@@ -13,6 +13,7 @@ import org.skypro.skyshop.Search.Searchable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class App {
     public static void main(String[] args) throws BestResultNotFound {
@@ -179,9 +180,9 @@ public class App {
         System.out.println("\n=== ДЕМОНСТРАЦИЯ ПОИСКА ===");
 
         try {
-            TreeMap<String, Searchable> searchResults = (TreeMap<String, Searchable>) searchEngine.search("Яблоки");
+            TreeSet< Searchable> searchResults = (TreeSet<Searchable>) searchEngine.search("Яблоки");
             System.out.println("Результаты поиска по запросу 'яблоки' (отсортировано по именам):");
-            for (Searchable result : searchResults.values()) {
+            for (Searchable result : searchResults) {
                 System.out.println("- " + result);
             }
         } catch (BestResultNotFound e) {
@@ -189,9 +190,9 @@ public class App {
         }
 
         try {
-            TreeMap<String, Searchable> emptyResults = (TreeMap<String, Searchable>) searchEngine.search("Апельсин");
+            TreeSet<Searchable> emptyResults = (TreeSet<Searchable>) searchEngine.search("Апельсин");
             System.out.println("Результаты поиска по запросу 'Апельсин' (отсортировано по именам):");
-            for (Searchable result : emptyResults.values()) {
+            for (Searchable result : emptyResults) {
                 System.out.println("- " + result);
             }
         }
